@@ -20,7 +20,7 @@
 </p>
 
 ---
-<img width="2000" height="2000" alt="image" src="https://github.com/user-attachments/assets/06bbc0f0-59b2-4d90-b092-f152ee269548" />
+<img width="1000" height="1000" alt="image" src="https://github.com/user-attachments/assets/06bbc0f0-59b2-4d90-b092-f152ee269548" />
 
 ## Overview
 
