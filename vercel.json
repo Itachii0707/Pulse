@@ -3,6 +3,8 @@
   "cleanUrls": true,
   "outputDirectory": "website",
   "framework": null,
+  "buildCommand": null,
+  "installCommand": null,
   "headers": [
     {
       "source": "/(.*)",
