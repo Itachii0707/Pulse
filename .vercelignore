@@ -1,0 +1,13 @@
+node_modules
+out
+dist
+*.exe
+website/*.exe
+Pulse-Setup.exe
+website/Pulse-Setup.exe
+.git
+.github
+e2e
+src
+resources
+patches

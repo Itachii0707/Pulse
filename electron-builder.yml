@@ -1,0 +1,66 @@
+appId: com.pulse.app
+productName: Pulse
+# Shown in the macOS About window and Finder's Get Info, and in the Windows file properties.
+copyright: Copyright © 2026 Pulse
+afterPack: scripts/check-torrent-package.mjs
+# Code-signing hook: runs after packaging, before NSIS wraps the installer.
+# Set PULSE_SIGN_CERT_SHA1 (or PULSE_SIGN_CERT_NAME) in CI to enable signing.
+# Set PULSE_SKIP_SIGN=1 to skip (PR / draft builds).
+afterSign: scripts/sign-windows.mjs
+directories:
+  buildResources: build
+files:
+  - '!**/.vscode/*'
+  - '!src/*'
+  - '!electron.vite.config.{js,ts,mjs,cjs}'
+  - '!{.eslintcache,eslint.config.mjs,.prettierignore,.prettierrc.yaml,dev-app-update.yml,CHANGELOG.md,README.md}'
+  - '!website/**'
+  - '!Pulse-Setup.exe'
+  - '!dist/**'
+  - '!{.env,.env.*,.npmrc,pnpm-lock.yaml}'
+  # koffi ships prebuilds for every OS; it's loaded on Linux (network/deviceBinding.ts) and on
+  # Windows (download/sparseFile.ts).
+  - '!node_modules/koffi/{src,vendor,doc}/**'
+  - '!node_modules/koffi/build/koffi/!(linux_x64|linux_arm64|win32_x64|win32_arm64)/**'
+  # Pulse uses TCP peers only. simple-peer is patched to use browser globals instead of loading
+  # the native WebRTC polyfill; don't ship unused host-platform binaries in cross-platform builds.
+  - '!node_modules/node-datachannel/**'
+  - '!node_modules/webrtc-polyfill/**'
+  - '!{tsconfig.json,tsconfig.node.json,tsconfig.web.json}'
+asarUnpack:
+  - resources/**
+win:
+  # No protocols or fileAssociations: the NSIS installer would register Pulse as *the* handler for
+  # magnet links and .torrent files, taking them from a torrent client the user already has.
+  # A .torrent can still be opened with Pulse through "Open with".
+  executableName: pulse
+  target:
+    - target: nsis
+      arch: [x64, arm64]
+nsis:
+  # No ${arch} on purpose: one installer holds both x64 and ARM64, and docs/downloads.js reads an
+  # installer with no architecture in its name as exactly that. Add one here and update it there.
+  artifactName: Pulse-Setup.${ext}
+  # Assisted installer instead of one-click, so users can choose the install folder (and drive).
+  # One-click always installs to %LOCALAPPDATA%\Programs with no way to change it.
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+  shortcutName: ${productName}
+  uninstallDisplayName: ${productName}
+  createDesktopShortcut: always
+  differentialPackage: true
+mac:
+  target:
+    - target: default
+      arch: [x64, arm64, universal]
+  category: public.app-category.utilities
+  hardenedRuntime: true
+  gatekeeperAssess: false
+linux:
+  target:
+    - target: AppImage
+      arch: [x64, arm64]
+    - target: deb
+      arch: [x64, arm64]
+  category: Network
+npmRebuild: false

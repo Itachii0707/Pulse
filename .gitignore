@@ -1,0 +1,34 @@
+node_modules
+dist
+out
+.DS_Store
+.eslintcache
+*.log*
+test-results
+playwright-report
+*.tsbuildinfo
+*.exe
+
+# Environment variables & secrets
+.env
+.env.*
+!.env.example
+
+# Code signing certificates and keys
+*.pfx
+*.p12
+*.pem
+*.key
+*.cer
+*.crt
+
+# Crash dumps & local error logs
+*.dmp
+crashes/
+logs/
+
+# IDE & OS files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

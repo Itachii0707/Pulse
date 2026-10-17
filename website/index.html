@@ -1,0 +1,1141 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pulse</title>
+    <meta
+      name="description"
+      content="Combine Wi-Fi, Ethernet, and 5G mobile networks simultaneously to multiply your download speeds. Zero VPN, no drivers, 100% free standalone desktop app."
+    />
+    <link rel="icon" type="image/png" href="logo-origami.png?v=4" />
+    <link rel="shortcut icon" href="favicon.ico?v=4" />
+
+    <!-- Security Headers (CSP, Anti-Sniffing, Referrer, Permissions) -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self'; base-uri 'self'; form-action 'self';"
+    />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <meta
+      http-equiv="Permissions-Policy"
+      content="camera=(), microphone=(), geolocation=(), payment=()"
+    />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700;800&family=JetBrains+Mono:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Three.js for 3D Background Elements with SRI Hash -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"
+      integrity="sha512-dLxUelApnYxpLt6K2iomGngnHO83iUvZytA3YjDUCjT0HDhTtn138644kC3fw65KaAW4cL9QMgGxkVcg3oyhFiA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
+    <link rel="stylesheet" href="style.css?v=4" />
+  </head>
+  <body>
+    <!-- Skip to main content accessibility link -->
+    <a href="#hero" class="skip-link">Skip to main content</a>
+
+    <!-- 3D Interactive Background Canvas -->
+    <canvas id="bg-canvas" aria-hidden="true"></canvas>
+
+    <!-- Notification Toast for .exe Download with Live Progress -->
+    <div id="download-toast" class="download-toast" role="status" aria-live="polite">
+      <div class="toast-card">
+        <div class="toast-top-row">
+          <div class="toast-badge" id="toast-badge">⚡ DEMO PREVIEW (SIMULATOR)</div>
+          <button class="toast-close" id="toast-close-btn" aria-label="Close notification">
+            &times;
+          </button>
+        </div>
+
+        <div class="toast-file-row">
+          <div class="toast-file-icon">📦</div>
+          <div class="toast-file-info">
+            <div class="toast-file-name">Pulse-Setup.exe</div>
+            <div class="toast-file-meta">
+              <span class="toast-size-pill">Original Size: <strong>247 MB</strong></span>
+              <span class="toast-bytes-pill">(259,172,020 bytes)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Live Dynamic Progress Bar while downloading -->
+        <div class="toast-progress-section">
+          <div class="toast-progress-track">
+            <div class="toast-progress-bar" id="toast-progress-bar" style="width: 0%"></div>
+          </div>
+          <div class="toast-progress-stats">
+            <span class="toast-stat-bytes" id="toast-stat-bytes">0 MB / 247 MB</span>
+            <span class="toast-stat-pct" id="toast-stat-pct">0%</span>
+            <span class="toast-stat-speed" id="toast-stat-speed">⚡ Simulated Multi-Pipe</span>
+          </div>
+        </div>
+
+        <div class="toast-footer-note" id="toast-footer-note">
+          <span class="toast-pulse-dot"></span>
+          <span id="toast-status-msg"
+            >Interactive Preview: Simulating multi-adapter bonding download (247 MB)...</span
+          >
+        </div>
+      </div>
+    </div>
+
+    <div class="page-wrapper">
+      <!-- Top Announcement Bar -->
+      <aside class="announcement-bar" aria-label="Announcement">
+        <a href="#extensions" class="announcement-link">
+          <span class="announcement-badge">NEW</span>
+          <span
+            >Pulse browser extensions are live for Chrome & Firefox! Send downloads with 1-click
+            →</span
+          >
+        </a>
+      </aside>
+
+      <!-- Navigation Bar -->
+      <header class="navbar-wrapper">
+        <nav class="navbar" aria-label="Main Navigation">
+          <a href="#hero" class="nav-brand">
+            <img src="icon.png" alt="Pulse Logo" class="brand-icon" width="38" height="38" />
+            <span class="brand-name">PULSE</span>
+          </a>
+
+          <div class="nav-links" id="primary-nav-links">
+            <a href="#features" class="nav-link" aria-label="Explore Pulse features">Features</a>
+            <a href="#downloads" class="nav-link" aria-label="Download options">Downloads</a>
+            <a href="#extensions" class="nav-link" aria-label="Browser extensions">Extensions</a>
+            <a href="#comparison" class="nav-link" aria-label="Speed and feature comparison"
+              >Compare</a
+            >
+            <a href="#faq" class="nav-link" aria-label="Frequently asked questions">FAQ</a>
+            <a href="#support" class="nav-link" aria-label="Customer support and documentation"
+              >Support</a
+            >
+          </div>
+
+          <div class="nav-actions">
+            <a
+              href="Pulse-Setup.exe"
+              download="Pulse-Setup.exe"
+              class="btn btn-nav download-trigger"
+              id="nav-download-btn"
+              aria-label="Download Pulse for Windows 247 MB executable installer"
+            >
+              <span class="btn-icon">⚡</span>
+              <span>GET PULSE (.EXE • 247 MB)</span>
+            </a>
+
+            <button
+              class="nav-toggle"
+              id="nav-toggle-btn"
+              aria-label="Toggle mobile navigation menu"
+              aria-expanded="false"
+              aria-controls="primary-nav-links"
+            >
+              <span class="hamburger-bar"></span>
+              <span class="hamburger-bar"></span>
+              <span class="hamburger-bar"></span>
+            </button>
+          </div>
+        </nav>
+      </header>
+
+      <!-- Hero Section -->
+      <section class="hero-section" id="hero">
+        <div class="hero-container">
+          <!-- Hero 3D Origami Showcase -->
+          <div class="hero-origami-showcase">
+            <img
+              src="logo-origami.png?v=4"
+              alt="Pulse 3D Origami Logo"
+              class="hero-origami-img"
+              width="180"
+              height="180"
+            />
+          </div>
+
+          <div class="hero-stickers" aria-hidden="true">
+            <span class="sticker sticker-coral">MULTI-PIPE BONDING</span>
+            <span class="sticker sticker-green">⚡ 5X FASTER</span>
+            <span class="sticker sticker-yellow">📦 247 MB STANDALONE</span>
+            <span class="sticker sticker-blue">ZERO VPN NEEDED</span>
+          </div>
+
+          <h1 class="hero-title">
+            COMBINE YOUR NETWORKS.<br />
+            <span class="highlight-yellow">DOWNLOAD FASTER.</span>
+          </h1>
+
+          <p class="hero-subtitle">
+            A free, open-source download manager that combines your internet connections —
+            <strong>Wi-Fi</strong>, <strong>Ethernet</strong>, and
+            <strong>phone USB tethering</strong> — to download files and torrents at multiplied
+            speeds.
+          </p>
+
+          <!-- Main Call To Action -->
+          <div class="hero-cta-group">
+            <div
+              style="
+                display: flex;
+                gap: 1rem;
+                justify-content: center;
+                align-items: stretch;
+                flex-wrap: wrap;
+              "
+            >
+              <a
+                href="Pulse-Setup.exe"
+                download="Pulse-Setup.exe"
+                class="btn btn-hero download-trigger"
+                id="hero-download-btn"
+              >
+                <div class="btn-hero-glow" aria-hidden="true"></div>
+                <div class="btn-hero-content">
+                  <svg
+                    class="windows-logo"
+                    viewBox="0 0 88 88"
+                    width="26"
+                    height="26"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M0 12.402l35.687-4.86.016 34.423-35.67.203zm35.67 33.529l.028 34.453L.028 75.48.016 46.124zM40.117 6.784L87.95 0v41.527l-47.833.328zm47.854 39.549L88 88l-47.854-6.711-.029-35.044z"
+                    />
+                  </svg>
+                  <div class="btn-hero-text">
+                    <span class="btn-hero-title">DOWNLOAD PULSE (.EXE)</span>
+                    <span class="btn-hero-sub"
+                      >Direct Windows Installer • 64-bit • 247 MB (259,172,020 bytes)</span
+                    >
+                  </div>
+                  <span class="btn-hero-arrow" aria-hidden="true">↓</span>
+                </div>
+              </a>
+              <button
+                type="button"
+                class="btn open-in-pulse-btn"
+                id="hero-open-pulse-btn"
+                data-url="https://speed.cloudflare.com/__down?bytes=104857600"
+                style="
+                  padding: 1rem 1.6rem;
+                  display: flex;
+                  align-items: center;
+                  gap: 0.6rem;
+                  justify-content: center;
+                  font-size: 1rem;
+                "
+              >
+                <span style="font-size: 1.25rem">⚡</span>
+                <span>OPEN IN PULSE</span>
+              </button>
+              <a
+                href="#features"
+                class="btn"
+                style="
+                  background-color: #ffffff;
+                  color: #000;
+                  border: 3px solid #000;
+                  border-radius: 12px;
+                  font-family: var(--font-heading);
+                  font-weight: 800;
+                  font-size: 1rem;
+                  padding: 1rem 1.6rem;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  box-shadow: 4px 4px 0px #000;
+                  text-decoration: none;
+                "
+              >
+                <span>EXPLORE FEATURES ↓</span>
+              </a>
+            </div>
+
+            <div class="hero-cta-note">
+              <span class="note-pill">📦 Original Size: 247 MB</span>
+              <span class="note-pill">⚡ Instant .exe Download</span>
+              <span class="note-pill">🔒 Safe & Uncompressed</span>
+              <span class="note-pill">💻 Windows 10 & 11 (64-bit)</span>
+            </div>
+          </div>
+
+          <!-- Hero Mockup Display (Live Dashboard Simulation) -->
+          <div class="dashboard-mockup-wrapper">
+            <div class="mockup-header-bar">
+              <div class="window-dots">
+                <span class="dot dot-red"></span>
+                <span class="dot dot-yellow"></span>
+                <span class="dot dot-green"></span>
+              </div>
+              <div class="mockup-title">Pulse Dashboard — Active Multi-Pipe Transfer</div>
+              <div class="mockup-status-badge">● 3 NETWORKS BONDED</div>
+            </div>
+
+            <div class="mockup-body">
+              <!-- Active Download Card -->
+              <div class="mockup-download-card">
+                <div class="mockup-file-info">
+                  <div class="file-icon-box">📦</div>
+                  <div class="file-details">
+                    <div class="file-name">Ubuntu-24.04-LTS-Desktop-x64.iso</div>
+                    <div class="file-meta">5.80 GB Total • 4.93 GB Downloaded (85%)</div>
+                  </div>
+                  <div class="file-speed-pill">
+                    <span class="pulse-indicator"></span>
+                    <strong id="mockup-combined-speed">312.4 MB/s</strong>
+                  </div>
+                </div>
+
+                <!-- Multi-Stream Segmented Progress Bar -->
+                <div class="mockup-progress-track">
+                  <div
+                    class="progress-segment seg-ethernet"
+                    style="width: 48%"
+                    title="Ethernet Chunks (150 MB/s)"
+                  ></div>
+                  <div
+                    class="progress-segment seg-wifi"
+                    style="width: 25%"
+                    title="Wi-Fi Chunks (95 MB/s)"
+                  ></div>
+                  <div
+                    class="progress-segment seg-mobile"
+                    style="width: 12%"
+                    title="5G Phone USB (67 MB/s)"
+                  ></div>
+                </div>
+
+                <!-- Network Pipeline Bars -->
+                <div class="mockup-networks-grid">
+                  <div class="mockup-net-item net-blue">
+                    <div class="net-header">
+                      <span class="net-name">🔌 Gigabit Ethernet</span>
+                      <span class="net-speed">150.2 MB/s</span>
+                    </div>
+                    <div class="net-bar"><div class="net-fill" style="width: 88%"></div></div>
+                  </div>
+
+                  <div class="mockup-net-item net-yellow">
+                    <div class="net-header">
+                      <span class="net-name">📶 Wi-Fi 6 (5 GHz)</span>
+                      <span class="net-speed">95.0 MB/s</span>
+                    </div>
+                    <div class="net-bar"><div class="net-fill" style="width: 65%"></div></div>
+                  </div>
+
+                  <div class="mockup-net-item net-coral">
+                    <div class="net-header">
+                      <span class="net-name">📱 5G Phone Tether (USB)</span>
+                      <span class="net-speed">67.2 MB/s</span>
+                    </div>
+                    <div class="net-bar"><div class="net-fill" style="width: 45%"></div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Neubrutalist Marquee Banner -->
+      <div class="marquee-strip" aria-hidden="true">
+        <div class="marquee-track">
+          <span class="marquee-item">⚡ MULTI-PIPE NETWORK BONDING</span>
+          <span class="marquee-item">🚀 PARALLEL CHUNK RACING</span>
+          <span class="marquee-item">🛡️ ZERO VPN OVERHEAD</span>
+          <span class="marquee-item">💾 NTFS SPARSE FILE ACCELERATION</span>
+          <span class="marquee-item">🌐 TORRENT + DIRECT HTTP/HTTPS</span>
+          <span class="marquee-item">⚡ COMBINE WI-FI + 5G + ETHERNET</span>
+          <span class="marquee-item">⚡ MULTI-PIPE NETWORK BONDING</span>
+          <span class="marquee-item">🚀 PARALLEL CHUNK RACING</span>
+          <span class="marquee-item">🛡️ ZERO VPN OVERHEAD</span>
+          <span class="marquee-item">💾 NTFS SPARSE FILE ACCELERATION</span>
+          <span class="marquee-item">🌐 TORRENT + DIRECT HTTP/HTTPS</span>
+          <span class="marquee-item">⚡ COMBINE WI-FI + 5G + ETHERNET</span>
+        </div>
+      </div>
+
+      <!-- Features Section (More connections, less waiting) -->
+      <section class="section-container" id="features">
+        <div class="section-header">
+          <div class="section-tag sticker-yellow">CORE CAPABILITIES</div>
+          <h2 class="section-title">MORE CONNECTIONS, LESS WAITING</h2>
+          <p class="section-desc">
+            Traditional download managers split files across a single connection. Pulse breaks
+            hardware limits by routing parallel chunk streams across every network your machine can
+            reach.
+          </p>
+        </div>
+
+        <div class="features-grid">
+          <!-- Feature 1: Multiple Connections -->
+          <article class="feature-card card-yellow">
+            <div class="card-icon-header">
+              <span class="card-emoji">🔌+📶+📱</span>
+              <span class="card-badge">BONDED PIPES</span>
+            </div>
+            <h3 class="card-title">Multiple connections</h3>
+            <p class="card-text">
+              Use all your internet connections together. Pulse downloads different parts of the
+              same file through each connection, helping it finish faster.
+            </p>
+            <div class="card-tag-row">
+              <span class="mini-tag">Wi-Fi + Ethernet</span>
+              <span class="mini-tag">Phone USB Tethering</span>
+              <span class="mini-tag">Multi-Socket</span>
+            </div>
+          </article>
+
+          <!-- Feature 2: Files and Torrents -->
+          <article class="feature-card card-blue">
+            <div class="card-icon-header">
+              <span class="card-emoji">📦+🌊</span>
+              <span class="card-badge">UNIFIED QUEUE</span>
+            </div>
+            <h3 class="card-title">Files and torrents</h3>
+            <p class="card-text">
+              Download direct files and torrents in one place. Paste any HTTP/HTTPS link or drop a
+              .torrent file, and Pulse handles everything in the same queue using all your active
+              connections.
+            </p>
+            <div class="card-tag-row">
+              <span class="mini-tag">Direct Downloads</span>
+              <span class="mini-tag">Magnet Links</span>
+              <span class="mini-tag">Swarm Balancing</span>
+            </div>
+          </article>
+
+          <!-- Feature 3: Speed and Data Limits -->
+          <article class="feature-card card-coral">
+            <div class="card-icon-header">
+              <span class="card-emoji">⚙️</span>
+              <span class="card-badge">FULL CONTROL</span>
+            </div>
+            <h3 class="card-title">Speed and data limits</h3>
+            <p class="card-text">
+              Stay in control of every connection. Set speed limits and data caps for any network,
+              so you decide how much speed and data each one can use without blowing your phone
+              plan.
+            </p>
+            <div class="card-tag-row">
+              <span class="mini-tag">Per-Adapter Caps</span>
+              <span class="mini-tag">Quota Alerts</span>
+              <span class="mini-tag">Bandwidth Throttling</span>
+            </div>
+          </article>
+
+          <!-- Feature 4: Speculative Chunk Racing -->
+          <article class="feature-card card-green">
+            <div class="card-icon-header">
+              <span class="card-emoji">🏁</span>
+              <span class="card-badge">ZERO STALLS</span>
+            </div>
+            <h3 class="card-title">Speculative chunk racing</h3>
+            <p class="card-text">
+              Never get stuck at 99%. When a download approaches completion, idle connections
+              automatically race remaining lagging chunks. Whichever stream finishes first wins and
+              writes to disk.
+            </p>
+            <div class="card-tag-row">
+              <span class="mini-tag">Tail Latency Killer</span>
+              <span class="mini-tag">No 99% Freezes</span>
+            </div>
+          </article>
+
+          <!-- Feature 5: NTFS Sparse Files -->
+          <article class="feature-card card-orange">
+            <div class="card-icon-header">
+              <span class="card-emoji">💾</span>
+              <span class="card-badge">FAST DISK I/O</span>
+            </div>
+            <h3 class="card-title">Win32 sparse file acceleration</h3>
+            <p class="card-text">
+              When allocating gigabytes on disk, Windows normally stalls by zero-filling missing
+              gaps. Pulse calls Win32 <code>FSCTL_SET_SPARSE</code> directly, eliminating write lag
+              and preserving SSD health.
+            </p>
+            <div class="card-tag-row">
+              <span class="mini-tag">Instant File Prep</span>
+              <span class="mini-tag">Direct NVMe Speed</span>
+            </div>
+          </article>
+
+          <!-- Feature 6: Zero VPN & 100% Private -->
+          <article class="feature-card card-white">
+            <div class="card-icon-header">
+              <span class="card-emoji">🛡️</span>
+              <span class="card-badge">100% PRIVATE</span>
+            </div>
+            <h3 class="card-title">Zero VPN & zero drivers</h3>
+            <p class="card-text">
+              No expensive subscriptions, no cloud proxies, and no virtual TAP network drivers.
+              Pulse runs 100% locally on your PC, leaving your games, browser, and streaming
+              connections untouched.
+            </p>
+            <div class="card-tag-row">
+              <span class="mini-tag">No Accounts</span>
+              <span class="mini-tag">No Cloud Relays</span>
+              <span class="mini-tag">Free Forever</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Platform Downloads Section (Windows Dedicated Build) -->
+      <section class="section-container" id="downloads">
+        <div class="section-header">
+          <div class="section-tag sticker-green">OFFICIAL BUILD</div>
+          <h2 class="section-title">GET PULSE FOR WINDOWS</h2>
+          <p class="section-desc">
+            Download the standalone app for Windows 10 & 11 (64-bit). Packaged with complete
+            multi-socket engines and zero external dependencies.
+          </p>
+        </div>
+
+        <div class="windows-download-showcase" style="max-width: 720px; margin: 0 auto">
+          <!-- Windows Card (Primary Standalone) -->
+          <div class="download-card card-primary" style="padding: 2.5rem">
+            <div>
+              <div class="platform-card-header">
+                <div class="platform-icon-name">
+                  <span class="platform-logo" style="font-size: 2.8rem">🪟</span>
+                  <div>
+                    <h3 class="platform-title" style="font-size: 1.6rem">
+                      Windows 10 / 11 (64-bit)
+                    </h3>
+                    <span
+                      class="platform-subtitle"
+                      style="font-size: 0.9rem; color: var(--text-muted); font-weight: 600"
+                      >Official Standalone Desktop Installer</span
+                    >
+                  </div>
+                </div>
+                <span class="platform-badge badge-rec">RECOMMENDED</span>
+              </div>
+
+              <p
+                class="platform-desc"
+                style="font-size: 1.05rem; line-height: 1.6; margin: 1.2rem 0 1.6rem"
+              >
+                Full standalone installer with kernel32 Win32 socket bindings, native multi-adapter
+                physical bonding, and NTFS sparse file acceleration. Zero VPN, no drivers, 100% free
+                forever.
+              </p>
+
+              <div class="platform-specs" style="margin-bottom: 2rem">
+                <div class="spec-row">
+                  <span class="spec-label">Installer File:</span>
+                  <span class="spec-val">Pulse-Setup.exe</span>
+                </div>
+                <div class="spec-row">
+                  <span class="spec-label">Original File Size:</span>
+                  <span class="spec-val font-mono" style="font-weight: 800; color: #000"
+                    >247 MB (259,172,020 bytes)</span
+                  >
+                </div>
+                <div class="spec-row">
+                  <span class="spec-label">Version:</span>
+                  <span class="spec-val">1.0.0 Stable</span>
+                </div>
+                <div class="spec-row">
+                  <span class="spec-label">Architecture:</span>
+                  <span class="spec-val">x64 (64-bit Intel & AMD)</span>
+                </div>
+              </div>
+            </div>
+
+            <a
+              href="Pulse-Setup.exe"
+              download="Pulse-Setup.exe"
+              class="btn-platform-download download-trigger"
+              id="downloads-win-btn"
+              style="padding: 1.2rem; font-size: 1.1rem"
+            >
+              <span>⚡ DOWNLOAD PULSE FOR WINDOWS (.EXE • 247 MB)</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Windows First Launch SmartScreen Guide Callout -->
+        <div class="first-launch-guide">
+          <div class="guide-icon-badge">🛡️</div>
+          <div class="guide-text">
+            <h4>First-time launch on Windows? Here's what to expect:</h4>
+            <p>
+              Because Pulse is free software and does not purchase $500/year corporate Extended
+              Validation (EV) certificates, Microsoft SmartScreen may show an
+              <em>"Unrecognized app"</em> prompt on first run. Simply click
+              <strong>"More info"</strong> and then <strong>"Run anyway"</strong>. You only have to
+              do this once. Pulse is 100% clean, safe, and contains zero adware or trackers.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Browser Extensions Section -->
+      <section class="section-container" id="extensions">
+        <div class="section-header">
+          <div class="section-tag sticker-coral">ONE-CLICK INTEGRATION</div>
+          <h2 class="section-title">BROWSER EXTENSIONS</h2>
+          <p class="section-desc">
+            Send downloads from your browser straight to Pulse, or right-click any link to download
+            across all your active connections.
+          </p>
+        </div>
+
+        <div class="extensions-grid">
+          <!-- Chrome Card -->
+          <div class="extension-card">
+            <div>
+              <div class="extension-top">
+                <span class="extension-icon">🌐</span>
+                <div>
+                  <h3 class="extension-title">Download with Pulse for Chrome</h3>
+                  <span
+                    style="
+                      font-family: var(--font-mono);
+                      font-size: 0.8rem;
+                      color: var(--text-muted);
+                    "
+                    >Chrome, Edge, Brave, Opera</span
+                  >
+                </div>
+              </div>
+
+              <p class="extension-desc">
+                Catches browser downloads automatically. Forwards active session cookies and
+                referrer headers so private downloads work instantly.
+              </p>
+
+              <ul class="extension-features">
+                <li>✓ Automatic download interception</li>
+                <li>✓ Right-click "Download with Pulse" on any link or media</li>
+                <li>✓ Automatic magnet link redirection</li>
+                <li>✓ Inherits login sessions and private drive authentication</li>
+              </ul>
+            </div>
+
+            <a
+              href="https://chromewebstore.google.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn-extension btn-chrome"
+            >
+              <span>⚡ ADD TO CHROME / EDGE</span>
+              <span>→</span>
+            </a>
+          </div>
+
+          <!-- Firefox Card -->
+          <div class="extension-card">
+            <div>
+              <div class="extension-top">
+                <span class="extension-icon">🦊</span>
+                <div>
+                  <h3 class="extension-title">Download with Pulse for Firefox</h3>
+                  <span
+                    style="
+                      font-family: var(--font-mono);
+                      font-size: 0.8rem;
+                      color: var(--text-muted);
+                    "
+                    >Firefox, LibreWolf, Waterfox</span
+                  >
+                </div>
+              </div>
+
+              <p class="extension-desc">
+                Lightweight Mozilla WebExtension. Zero permissions required except download
+                forwarding and context menus.
+              </p>
+
+              <ul class="extension-features">
+                <li>✓ Seamless Firefox download queue override</li>
+                <li>✓ Context menu link & image catching</li>
+                <li>✓ Native messaging bridge to Pulse desktop</li>
+                <li>✓ 100% open source & privacy audited</li>
+              </ul>
+            </div>
+
+            <a
+              href="https://addons.mozilla.org/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn-extension btn-firefox"
+            >
+              <span>⚡ ADD TO FIREFOX</span>
+              <span>→</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- How It Works Step-by-Step -->
+      <section class="section-container" id="how-it-works">
+        <div class="section-header">
+          <div class="section-tag sticker-blue">SIMPLE 3-STEP FLOW</div>
+          <h2 class="section-title">HOW IT WORKS IN 30 SECONDS</h2>
+          <p class="section-desc">
+            You don't need network engineering degrees or terminal commands. If your computer sees a
+            connection, Pulse will use it.
+          </p>
+        </div>
+
+        <div class="steps-row">
+          <div class="step-card">
+            <div class="step-number">01</div>
+            <h3 class="step-title">Connect Anything You Have</h3>
+            <p class="step-text">
+              Connect to your Wi-Fi, plug in an Ethernet cable, or connect your phone via USB and
+              enable USB Tethering in your settings.
+            </p>
+          </div>
+
+          <div class="step-arrow" aria-hidden="true">➔</div>
+
+          <div class="step-card">
+            <div class="step-number">02</div>
+            <h3 class="step-title">Pulse Auto-Detects Networks</h3>
+            <p class="step-text">
+              Pulse detects each separate network card and assigns dedicated parallel TCP workers to
+              each interface with live speed tracking.
+            </p>
+          </div>
+
+          <div class="step-arrow" aria-hidden="true">➔</div>
+
+          <div class="step-card">
+            <div class="step-number">03</div>
+            <h3 class="step-title">Download at Multiplied Speed</h3>
+            <p class="step-text">
+              Paste any URL or torrent. Pulse splits the file into dynamic chunks, downloads them
+              over every network simultaneously, and writes the finished file to disk.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Comparison Matrix Section -->
+      <section class="section-container" id="comparison">
+        <div class="section-header">
+          <div class="section-tag sticker-coral">HEAD TO HEAD</div>
+          <h2 class="section-title">PULSE VS. TRADITIONAL DOWNLOADERS</h2>
+          <p class="section-desc">
+            See why ordinary download managers can't compete with hardware multi-network bonding.
+          </p>
+        </div>
+
+        <div class="table-wrapper">
+          <table class="neubrutal-table" aria-label="Feature Comparison">
+            <thead>
+              <tr>
+                <th scope="col" class="th-feature">Feature</th>
+                <th scope="col" class="th-pulse">⚡ PULSE</th>
+                <th scope="col">Browser (Chrome/Edge)</th>
+                <th scope="col">IDM (Internet Download Mgr)</th>
+                <th scope="col">Free Download Manager</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="td-feature"><strong>Simultaneous Multi-Network Bonding</strong></td>
+                <td class="td-pulse"><span class="check-badge">YES (All Networks)</span></td>
+                <td><span class="cross-badge">No (1 Network)</span></td>
+                <td><span class="cross-badge">No (1 Network)</span></td>
+                <td><span class="cross-badge">No (1 Network)</span></td>
+              </tr>
+              <tr>
+                <td class="td-feature"><strong>Tail-End Speculative Chunk Racing</strong></td>
+                <td class="td-pulse"><span class="check-badge">YES (Zero Stalls)</span></td>
+                <td><span class="cross-badge">No</span></td>
+                <td><span class="cross-badge">No</span></td>
+                <td><span class="cross-badge">No</span></td>
+              </tr>
+              <tr>
+                <td class="td-feature"><strong>Zero VPN / Zero Subscription Fees</strong></td>
+                <td class="td-pulse"><span class="check-badge">100% Free Forever</span></td>
+                <td><span class="check-badge">Free</span></td>
+                <td><span class="cross-badge">Paid ($30+ / Year)</span></td>
+                <td><span class="check-badge">Free</span></td>
+              </tr>
+              <tr>
+                <td class="td-feature"><strong>Win32 Sparse File Acceleration</strong></td>
+                <td class="td-pulse"><span class="check-badge">YES (kernel32 FFI)</span></td>
+                <td><span class="cross-badge">No</span></td>
+                <td><span class="cross-badge">Partial</span></td>
+                <td><span class="cross-badge">No</span></td>
+              </tr>
+              <tr>
+                <td class="td-feature"><strong>BitTorrent Swarm Multi-Adapter Routing</strong></td>
+                <td class="td-pulse"><span class="check-badge">YES (Patched Swarm)</span></td>
+                <td><span class="cross-badge">No Torrent Support</span></td>
+                <td><span class="cross-badge">No Torrent Support</span></td>
+                <td><span class="cross-badge">Single Adapter Only</span></td>
+              </tr>
+              <tr>
+                <td class="td-feature"><strong>Installer Size & Architecture</strong></td>
+                <td class="td-pulse">
+                  <span class="check-badge">247 MB (All-in-One Standalone)</span>
+                </td>
+                <td>Built-in (~120 MB Browser)</td>
+                <td>15 MB (Needs License Key)</td>
+                <td>40 MB (Basic Installer)</td>
+              </tr>
+              <tr>
+                <td class="td-feature"><strong>UI Aesthetics</strong></td>
+                <td class="td-pulse"><span class="check-badge">Sleek Neubrutalism</span></td>
+                <td>Basic Plain UI</td>
+                <td>90s Legacy Windows UI</td>
+                <td>Cluttered UI</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- FAQ Section (Questions, answered) -->
+      <section class="section-container" id="faq">
+        <div class="section-header">
+          <div class="section-tag sticker-yellow">HELP & ANSWERS</div>
+          <h2 class="section-title">QUESTIONS, ANSWERED</h2>
+          <p class="section-desc">
+            Everything you need to know about combining networks, device tethering, and download
+            speeds.
+          </p>
+        </div>
+
+        <div class="faq-accordion">
+          <!-- Question 1 -->
+          <details class="faq-card" open>
+            <summary
+              class="faq-summary"
+              aria-label="Toggle answer: How does Pulse make downloads faster?"
+            >
+              <span>How does Pulse make downloads faster?</span>
+              <span class="faq-arrow">➔</span>
+            </summary>
+            <div class="faq-content">
+              Pulse splits your download into smaller chunks, downloads different chunks
+              simultaneously over all the network connections you've enabled (such as your home
+              Wi-Fi, Ethernet, and phone USB tethering), then puts them back together into a single
+              finished file on disk. This lets one download use the combined bandwidth capacity of
+              all your available connections.
+            </div>
+          </details>
+
+          <!-- Question 2 -->
+          <details class="faq-card">
+            <summary
+              class="faq-summary"
+              aria-label="Toggle answer: What network connections can I combine?"
+            >
+              <span>What network connections can I combine?</span>
+              <span class="faq-arrow">➔</span>
+            </summary>
+            <div class="faq-content">
+              You can combine any active network adapters detected on your computer! For example,
+              your broadband Wi-Fi, a wired Gigabit Ethernet cable, a 4G or 5G smartphone connected
+              through USB tethering, or secondary USB Wi-Fi dongles. Each connection simply needs to
+              provide a separate route to the internet.
+            </div>
+          </details>
+
+          <!-- Question 3 -->
+          <details class="faq-card">
+            <summary
+              class="faq-summary"
+              aria-label="Toggle answer: Why does Windows SmartScreen show an unrecognized app warning?"
+            >
+              <span>Why does Windows SmartScreen show an unrecognized app warning?</span>
+              <span class="faq-arrow">➔</span>
+            </summary>
+            <div class="faq-content">
+              Commercial EV (Extended Validation) code-signing certificates cost hundreds of dollars
+              every year. Because Pulse is 100% free software, it is not EV signed yet. Windows may
+              display an <em>"Unrecognized app"</em> warning the first time you run Pulse. Follow
+              the first-launch steps: click <strong>"More info"</strong> and then
+              <strong>"Run anyway"</strong>. You only have to do this once, and the installer is
+              completely clean, virus-free, and contains zero adware.
+            </div>
+          </details>
+
+          <!-- Question 4 -->
+          <details class="faq-card">
+            <summary class="faq-summary" aria-label="Toggle answer: Does Pulse act as a VPN?">
+              <span>Does Pulse act as a VPN?</span>
+              <span class="faq-arrow">➔</span>
+            </summary>
+            <div class="faq-content">
+              <strong>No.</strong> Pulse combines connections strictly for downloads started inside
+              Pulse. It isn't a VPN, installs zero virtual network drivers, and doesn't change how
+              your web browser, online games, Discord, or video streams access the internet. All
+              other applications continue using your system's default network route normally.
+            </div>
+          </details>
+
+          <!-- Question 5 -->
+          <details class="faq-card">
+            <summary
+              class="faq-summary"
+              aria-label="Toggle answer: How do I use my Android or iPhone over USB?"
+            >
+              <span>How do I use my Android or iPhone over USB?</span>
+              <span class="faq-arrow">➔</span>
+            </summary>
+            <div class="faq-content">
+              Plug your phone into your computer using a standard USB cable. On Android: open
+              <strong>Settings → Hotspot &amp; Tethering → Turn on USB Tethering</strong>. On
+              iPhone: open <strong>Settings → Personal Hotspot → Allow Others to Join</strong> and
+              connect via USB. Windows will instantly recognize it as a separate Ethernet network
+              adapter, and Pulse will automatically bind it into your download queue.
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <!-- Support Section (Keep Pulse fast and free) -->
+      <section class="section-container" id="support">
+        <div class="section-header">
+          <div class="section-tag sticker-coral">COMMUNITY & SUPPORT</div>
+          <h2 class="section-title">KEEP PULSE FAST AND FREE</h2>
+          <p class="section-desc">
+            Pulse is free software. If it helps you download faster, support the project by starring
+            it, reporting bugs, or sharing it with friends.
+          </p>
+        </div>
+
+        <div class="support-grid">
+          <a
+            href="https://github.com/Pulse-App/pulse"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="support-card"
+          >
+            <div class="support-icon-box">⭐</div>
+            <h3 class="support-title">Star on GitHub</h3>
+            <p class="support-desc">
+              Help more people discover multi-network bonding by starring the repository.
+            </p>
+            <span class="support-action-link">Visit GitHub ➔</span>
+          </a>
+
+          <a
+            href="https://github.com/Pulse-App/pulse/issues/new?labels=bug"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="support-card"
+          >
+            <div class="support-icon-box">🐛</div>
+            <h3 class="support-title">Report a Bug</h3>
+            <p class="support-desc">
+              Found something broken or unexpected? Tell us what happened so we can fix it.
+            </p>
+            <span class="support-action-link">Open Issue ➔</span>
+          </a>
+
+          <a
+            href="https://github.com/Pulse-App/pulse/issues/new?labels=enhancement"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="support-card"
+          >
+            <div class="support-icon-box">💡</div>
+            <h3 class="support-title">Request a Feature</h3>
+            <p class="support-desc">
+              Have an idea for what Pulse should do next? We'd love to hear your feedback.
+            </p>
+            <span class="support-action-link">Suggest Idea ➔</span>
+          </a>
+
+          <a href="#downloads" class="support-card">
+            <div class="support-icon-box">⚡</div>
+            <h3 class="support-title">Share with Friends</h3>
+            <p class="support-desc">
+              Share Pulse with anyone who downloads large games, ISOs, videos, or torrents.
+            </p>
+            <span class="support-action-link">Get Download Link ➔</span>
+          </a>
+        </div>
+      </section>
+
+      <!-- Bottom Action CTA Banner -->
+      <section class="bottom-cta-section">
+        <div class="bottom-cta-card">
+          <span class="sticker sticker-yellow">NO INSTALLATION HASSLE</span>
+          <h2 class="bottom-cta-title">READY TO UNLEASH YOUR TRUE BANDWIDTH?</h2>
+          <p class="bottom-cta-desc">
+            Click below to download <strong>Pulse-Setup.exe</strong> directly to your computer.
+            Original file size is <strong>247 MB (259,172,020 bytes)</strong> with all multi-socket
+            engines bundled for Windows 10 & 11.
+          </p>
+
+          <div
+            style="
+              display: flex;
+              gap: 1rem;
+              justify-content: center;
+              align-items: stretch;
+              flex-wrap: wrap;
+              margin-top: 1.5rem;
+            "
+          >
+            <a
+              href="Pulse-Setup.exe"
+              download="Pulse-Setup.exe"
+              class="btn btn-hero download-trigger"
+              id="footer-download-btn"
+            >
+              <div class="btn-hero-content">
+                <svg
+                  class="windows-logo"
+                  viewBox="0 0 88 88"
+                  width="28"
+                  height="28"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M0 12.402l35.687-4.86.016 34.423-35.67.203zm35.67 33.529l.028 34.453L.028 75.48.016 46.124zM40.117 6.784L87.95 0v41.527l-47.833.328zm47.854 39.549L88 88l-47.854-6.711-.029-35.044z"
+                  />
+                </svg>
+                <div class="btn-hero-text">
+                  <span class="btn-hero-title">DOWNLOAD PULSE FOR WINDOWS (.EXE)</span>
+                  <span class="btn-hero-sub">Direct file download • Pulse-Setup.exe (247 MB)</span>
+                </div>
+                <span class="btn-hero-arrow" aria-hidden="true">↓</span>
+              </div>
+            </a>
+            <button
+              type="button"
+              class="btn open-in-pulse-btn"
+              id="footer-open-pulse-btn"
+              data-url="https://speed.cloudflare.com/__down?bytes=104857600"
+              style="
+                padding: 1rem 1.6rem;
+                display: flex;
+                align-items: center;
+                gap: 0.6rem;
+                justify-content: center;
+                font-size: 1rem;
+              "
+            >
+              <span style="font-size: 1.25rem">⚡</span>
+              <span>OPEN IN PULSE</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="footer">
+        <div class="footer-inner">
+          <div class="footer-brand">
+            <div class="footer-logo">
+              <img
+                src="icon.png"
+                alt="Pulse Logo"
+                width="36"
+                height="36"
+                loading="lazy"
+                class="footer-origami-img"
+              />
+              <span>PULSE</span>
+            </div>
+            <p class="footer-tagline">Multi-Network Socket Bonding.</p>
+          </div>
+
+          <div class="footer-meta">
+            <div class="footer-chips">
+              <span class="footer-chip">📦 247 MB Original Size</span>
+              <span class="footer-chip">⚡ 100% Standalone</span>
+              <span class="footer-chip">🛡️ Zero Telemetry</span>
+              <span class="footer-chip">💻 Windows 64-bit</span>
+            </div>
+            <div class="footer-copy">Pulse.</div>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <!-- Sticky Quick Download Pill on Scroll -->
+    <div class="sticky-download-bar" id="sticky-download-bar">
+      <div class="sticky-bar-content">
+        <div class="sticky-bar-info">
+          <img
+            src="icon.png"
+            alt="Pulse"
+            width="32"
+            height="32"
+            loading="lazy"
+            class="sticky-origami-img"
+          />
+          <div>
+            <strong>PULSE</strong>
+            <span class="sticky-sub">Windows 10 / 11 • 247 MB (.exe)</span>
+          </div>
+        </div>
+        <a
+          href="Pulse-Setup.exe"
+          download="Pulse-Setup.exe"
+          class="btn btn-sticky download-trigger"
+          aria-label="Download Pulse for Windows 247 MB executable installer"
+        >
+          ⚡ DOWNLOAD (.EXE • 247 MB)
+        </a>
+      </div>
+    </div>
+
+    <!-- Deep-Link Fallback Modal (If Pulse is not installed) -->
+    <div
+      id="pulse-modal"
+      class="pulse-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-title"
+      style="display: none"
+    >
+      <div class="modal-backdrop" id="modal-backdrop"></div>
+      <div class="modal-card">
+        <button class="modal-close-btn" id="modal-close-btn" aria-label="Close dialog">
+          &times;
+        </button>
+        <div class="modal-icon">⚡</div>
+        <h3 id="modal-title" class="modal-title">PULSE NOT DETECTED</h3>
+        <p class="modal-desc">
+          We attempted to launch <strong>pulse://</strong>, but the Pulse desktop client was not
+          detected on your system.
+        </p>
+        <p class="modal-sub">
+          Download and run the 1-click Windows installer to enable multi-network bonding and browser
+          deep-linking.
+        </p>
+        <div class="modal-actions">
+          <a
+            href="Pulse-Setup.exe"
+            download="Pulse-Setup.exe"
+            class="btn btn-hero download-trigger"
+            id="modal-download-btn"
+          >
+            <span>DOWNLOAD PULSE FOR WINDOWS (.EXE)</span>
+          </a>
+          <button type="button" class="btn btn-secondary" id="modal-cancel-btn">Maybe Later</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Three.js CDN with fallback-safe execution -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="main.js?v=4"></script>
+  </body>
+</html>

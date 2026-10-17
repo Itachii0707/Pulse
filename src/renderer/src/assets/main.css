@@ -1,0 +1,322 @@
+@import 'tailwindcss';
+
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('./fonts/Manrope-Variable.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url('./fonts/RobotoMono-Variable.woff2') format('woff2');
+}
+
+:root {
+  color-scheme: light dark;
+
+  --bg: #fffdf7;
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #f5f2eb;
+  --input-bg: #ffffff;
+  --track-bg: #eae6dd;
+
+  --text: #000000;
+  --text-secondary: #333333;
+  --text-tertiary: #555555;
+
+  --border: #000000;
+  --border-subtle: #444444;
+  --border-strong: #000000;
+  --footer-border: #000000;
+
+  --icon-muted: #888888;
+  --icon-muted-strong: #333333;
+  --scrollbar-thumb: #000000;
+
+  --checkbox-shadow: rgba(0, 0, 0, 0.4);
+  --checkbox-inset-shadow: rgba(0, 0, 0, 0.08);
+
+  --hero-bg: #fffdf7;
+  --hero-border: #000000;
+
+  /* Pulse Neubrutalism Palette */
+  --color-wifi: #2196f3;
+  --color-wifi-bg: #e3f2fd;
+  --color-wifi-border: #000000;
+  --color-wifi-text: #0d47a1;
+  --color-wifi-onsolid: #ffffff;
+
+  --color-usb: #ff9800;
+  --color-usb-bg: #fff3e0;
+  --color-usb-border: #000000;
+  --color-usb-text: #e65100;
+  --color-usb-onsolid: #000000;
+
+  --color-ethernet: #4caf50;
+  --color-ethernet-bg: #e8f5e9;
+  --color-ethernet-border: #000000;
+  --color-ethernet-text: #1b5e20;
+  --color-ethernet-onsolid: #ffffff;
+
+  --color-neutral: #000000;
+  --color-neutral-bg: #f5f2eb;
+  --color-neutral-border: #000000;
+  --color-neutral-text: #000000;
+  --color-neutral-onsolid: #ffffff;
+
+  /* Network swatches */
+  --swatch-teal: #4caf50;
+  --swatch-teal-onsolid: #ffffff;
+  --swatch-amber: #ffeb3b;
+  --swatch-amber-onsolid: #000000;
+  --swatch-steel: #2196f3;
+  --swatch-steel-onsolid: #ffffff;
+  --swatch-rose: #ff5252;
+  --swatch-rose-onsolid: #ffffff;
+  --swatch-violet: #7c4dff;
+  --swatch-violet-onsolid: #ffffff;
+  --swatch-lime: #aeea00;
+  --swatch-lime-onsolid: #000000;
+  --swatch-cyan: #00e5ff;
+  --swatch-cyan-onsolid: #000000;
+  --swatch-coral: #ff5252;
+  --swatch-coral-onsolid: #ffffff;
+
+  --color-accent: #ffeb3b;
+  --color-accent-onsolid: #000000;
+  --color-success: #4caf50;
+
+  --color-danger: #ff5252;
+  --color-danger-bg: #ffebee;
+  --color-danger-border: #000000;
+
+  --node-accent: #000000;
+
+  /* Neubrutalist corner radius: clean geometric 4px with crisp borders */
+  --radius: 4px;
+  --shadow-neubrutal: 4px 4px 0px #000000;
+  --shadow-neubrutal-lg: 6px 6px 0px #000000;
+}
+
+/* Maps shadcn/Base UI's expected semantic tokens onto Plexo's existing palette above, instead of
+   introducing a second, parallel color system. Tailwind only generates `bg-primary`-style
+   utilities for names declared here, in `@theme` — so this can freely reuse Plexo's own custom
+   property *values* (e.g. --color-accent) without colliding with their names, since only the
+   left-hand names below become Tailwind tokens. */
+@theme inline {
+  --font-sans: 'Manrope', -apple-system, 'SF Pro Text', 'Helvetica Neue', Helvetica, sans-serif;
+  --font-mono: 'Roboto Mono', 'SF Mono', ui-monospace, Menlo, monospace;
+
+  --color-background: var(--bg);
+  --color-foreground: var(--text);
+  --color-card: var(--bg-secondary);
+  --color-card-foreground: var(--text);
+  --color-popover: var(--bg-secondary);
+  --color-popover-foreground: var(--text);
+  --color-primary: var(--color-accent);
+  --color-primary-foreground: var(--color-accent-onsolid);
+  --color-secondary: var(--bg-tertiary);
+  --color-secondary-foreground: var(--text);
+  --color-muted: var(--track-bg);
+  --color-muted-foreground: var(--text-tertiary);
+  --color-destructive: var(--color-danger);
+  --color-border: var(--border);
+  /* Not --input-bg: that's a fill color (white in light mode), invisible as a stroke.
+     border-input needs an actual visible border tone. */
+  --color-input: var(--border-strong);
+  --color-ring: var(--color-accent);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --hero-bg: linear-gradient(180deg, #202325 0%, #1b1e20 100%);
+    --hero-border: #2b2f33;
+    /* Graphite instrument-panel background — exact hex values from the "Plexo v2" design doc. */
+    --bg: #1b1e20;
+    --bg-secondary: #202325;
+    --bg-tertiary: #202325;
+    --input-bg: #242729;
+    --track-bg: #262a2d;
+
+    --text: #eae7e2;
+    --text-secondary: #a9adb2;
+    --text-tertiary: #8d9196;
+
+    --border: #2b2f33;
+    --border-subtle: #23262a;
+    --border-strong: #33383c;
+    --footer-border: #2b2f33;
+
+    --icon-muted: #33383c;
+    --icon-muted-strong: #3a3f44;
+    --scrollbar-thumb: #3a3f44;
+
+    --checkbox-shadow: rgba(0, 0, 0, 0.4);
+    --checkbox-inset-shadow: rgba(0, 0, 0, 0.3);
+
+    --color-wifi: #4ea89a;
+    --color-wifi-bg: #22312e;
+    --color-wifi-border: #3a5450;
+    --color-wifi-text: #7fc9bb;
+    --color-wifi-onsolid: #10201d;
+
+    --color-usb: #d8a44c;
+    --color-usb-bg: #33291a;
+    --color-usb-border: #54421f;
+    --color-usb-text: #e8bb6d;
+    --color-usb-onsolid: #221806;
+
+    --color-ethernet: #7e93bd;
+    --color-ethernet-bg: #232a38;
+    --color-ethernet-border: #3a4660;
+    --color-ethernet-text: #a7b8db;
+    --color-ethernet-onsolid: #141a26;
+
+    --color-neutral: #8d9196;
+    --color-neutral-bg: #26292c;
+    --color-neutral-border: #3a3f44;
+    --color-neutral-text: #a9adb2;
+    --color-neutral-onsolid: #16181a;
+
+    --swatch-teal: #4ea89a;
+    --swatch-teal-onsolid: #10201d;
+    --swatch-amber: #d8a44c;
+    --swatch-amber-onsolid: #221806;
+    --swatch-steel: #7e93bd;
+    --swatch-steel-onsolid: #141a26;
+    --swatch-rose: #c97b7b;
+    --swatch-rose-onsolid: #210f0f;
+    --swatch-violet: #9c8fd6;
+    --swatch-violet-onsolid: #17131f;
+    --swatch-lime: #a3c66a;
+    --swatch-lime-onsolid: #161f0d;
+    --swatch-cyan: #6db8c9;
+    --swatch-cyan-onsolid: #0d1a1e;
+    --swatch-coral: #d99168;
+    --swatch-coral-onsolid: #241209;
+
+    --color-accent: #d8a44c;
+    --color-accent-onsolid: #1b1408;
+    --color-success: #4ea89a;
+
+    --color-danger: #eda3a3;
+    --color-danger-bg: #2c1c1c;
+    --color-danger-border: #4a2a2a;
+
+    --node-accent: #f7f4ef;
+  }
+}
+
+/* Layered, not plain global CSS, so Tailwind utility classes still win over these resets.
+   Tailwind puts its own utilities in a later layer than base styles, and unlayered CSS beats
+   every layer regardless of specificity, so an unlayered button font reset here previously
+   overrode every text and font utility on every button in the app. box-sizing, margin and
+   padding resets, and the default font family, are already handled by Tailwind Preflight, so
+   they are not repeated here. Body, html and root element sizing now live as utility classes
+   in index.html instead. */
+@layer base {
+  input,
+  [contenteditable] {
+    user-select: text;
+  }
+
+  button {
+    font: inherit;
+  }
+
+  /* A desktop app: controls keep the arrow, as native ones do; no pointing hand anywhere. */
+  a,
+  button,
+  [role='button'],
+  [role='menuitem'] {
+    cursor: default;
+  }
+
+  /* No core Tailwind utility for scrollbar pseudo-elements. */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--scrollbar-thumb);
+    border-radius: 9999px;
+  }
+}
+
+@keyframes pulse-dash {
+  to {
+    stroke-dashoffset: -60;
+  }
+}
+
+@keyframes plexo-dash {
+  to {
+    stroke-dashoffset: -60;
+  }
+}
+
+@keyframes pulse-glow {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes plexo-glow {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes pulse-popover-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes plexo-popover-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
