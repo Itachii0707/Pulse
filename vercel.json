@@ -3,8 +3,8 @@
   "cleanUrls": true,
   "outputDirectory": "website",
   "framework": null,
-  "buildCommand": null,
-  "installCommand": null,
+  "installCommand": "echo 'Skipping install'",
+  "buildCommand": "echo 'Skipping build for static site'",
   "headers": [
     {
       "source": "/(.*)",
