@@ -5,6 +5,13 @@
   "framework": null,
   "installCommand": "echo 'Skipping install'",
   "buildCommand": "echo 'Skipping build for static site'",
+  "redirects": [
+    {
+      "source": "/Pulse-Setup.exe",
+      "destination": "https://github.com/Itachii0707/Pulse/releases/latest/download/Pulse-Setup.exe",
+      "permanent": false
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",

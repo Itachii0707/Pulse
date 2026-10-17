@@ -19,8 +19,15 @@
   <a href="vercel.json"><img src="https://img.shields.io/badge/Vercel-Deploys%20Landing%20Site-000000.svg" alt="Vercel Ready"></a>
 </p>
 
+<p align="center">
+  <a href="https://bit.ly/4k35F85?r=qr">
+    <img src="https://github.com/user-attachments/assets/06bbc0f0-59b2-4d90-b092-f152ee269548" width="130" alt="Scan QR Code to visit Pulse Website">
+  </a>
+  <br>
+  <sub>📱 <strong>Scan to visit Live Website</strong> • <a href="https://pulse-three-blue.vercel.app/">pulse-three-blue.vercel.app</a></sub>
+</p>
+
 ---
-<img width="400" height="400" alt="image" src="https://github.com/user-attachments/assets/06bbc0f0-59b2-4d90-b092-f152ee269548" />
 
 ## Overview
 
